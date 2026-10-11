@@ -1,8 +1,16 @@
 [phases.setup]
 nixPkgs = ["python311", "tesseract"]
+nixpkgsArchive = "ba913eda2df8eb72147259189d55932012df6301"
 
 [phases.install]
 cmds = ["pip install -r requirements.txt"]
 
+[phases.build]
+cmds = ["echo 'Build complete'"]
+
 [start]
 cmd = "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+
+[variables]
+PYTHONUNBUFFERED = "1"
+PYTHONDONTWRITEBYTECODE = "1"
