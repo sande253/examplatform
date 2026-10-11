@@ -147,3 +147,10 @@
  ✓ Compiled in 2.4s (2433 modules)
  ○ Compiling /papers/[id] ...
  ✓ Compiled /papers/[id] in 852ms (1165 modules)
+   Reload env: .env.local
+ ✓ Compiled in 5.5s (2486 modules)
+ GET /papers 200 in 2915ms
+ GET /papers 200 in 2799ms
+ ✓ Compiled in 2.8s (2415 modules)
+ GET /papers 200 in 510ms
+ GET /papers 200 in 537ms

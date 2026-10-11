@@ -1,5 +1,6 @@
 """Vercel serverless function entry point."""
 from app.main import app
+from mangum import Mangum
 
-# Vercel will use this as the handler
-handler = app
+# Mangum adapter for AWS Lambda/Vercel
+handler = Mangum(app, lifespan="off")
