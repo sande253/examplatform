@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings
-from typing import List
+from typing import List, Union
 import json
 
 class Settings(BaseSettings):
@@ -26,9 +26,17 @@ class Settings(BaseSettings):
     MAX_UPLOAD_SIZE_MB: int = 50
     TESSERACT_CMD: str = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
     
-    CORS_ORIGINS: List[str] = ["http://localhost:3000"]
+    CORS_ORIGINS: Union[List[str], str] = ["http://localhost:3000"]
 
     class Config:
         env_file = ".env"
+        
+        @classmethod
+        def parse_env_var(cls, field_name: str, raw_val: str):
+            if field_name == 'CORS_ORIGINS':
+                if isinstance(raw_val, str) and raw_val.startswith('['):
+                    return json.loads(raw_val)
+                return [raw_val]
+            return raw_val
 
 settings = Settings()
