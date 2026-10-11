@@ -1,0 +1,32 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Migrate all pages and components from hardcoded dark theme classes to light theme classes, ensuring consistent styling across landing page, auth pages, dashboard, papers, history, and navbar",
+  "status": "pending",
+  "steps": [
+    "Update src/app/page.tsx landing page: replace bg-[#0F172A] with bg-gradient-to-b from-slate-50 to-white, replace text-slate-50 with text-slate-900, replace border-slate-800 with border-slate-200, replace text-slate-300 with text-slate-700, replace text-slate-400 with text-slate-600, replace text-slate-500 with text-slate-500, replace bg-slate-800/50 with bg-white, replace hover:bg-slate-800 with hover:bg-slate-100, keep indigo accent colors",
+    "Update src/app/auth/login/page.tsx: replace bg-[#0F172A] with bg-gradient-to-br from-indigo-50 via-white to-purple-50, replace bg-slate-900 with bg-white, replace border-slate-800 with border-slate-200, replace text-white with text-slate-900, replace text-slate-300 with text-slate-700, replace text-slate-400 with text-slate-600, replace bg-slate-800 with bg-slate-50, replace border-slate-700 with border-slate-300",
+    "Update src/app/auth/register/page.tsx: apply same pattern as login page for consistent auth page styling",
+    "Update src/app/dashboard/page.tsx: replace bg-[#0F172A] with bg-slate-50, replace text-slate-50 with text-slate-900, replace text-slate-400 with text-slate-600, replace bg-slate-800/50 with bg-white, replace border-slate-700 with border-slate-200, replace text-white with text-slate-900, replace hover:bg-slate-700/50 with hover:bg-slate-100, replace text-slate-500 with text-slate-500",
+    "Update src/app/papers/page.tsx: apply same light theme class replacements as dashboard",
+    "Update src/app/history/page.tsx: replace bg-[#0F172A] with bg-slate-50, replace bg-slate-800/50 with bg-white, replace border-slate-700 with border-slate-200, replace text-white with text-slate-900, replace text-slate-400 with text-slate-600, replace hover:border-slate-600 with hover:border-indigo-300",
+    "Update src/components/navbar.tsx: replace bg-slate-900/80 with bg-white/80, replace border-slate-800 with border-slate-200, replace text-slate-300 with text-slate-700, replace hover:bg-slate-800 with hover:bg-slate-100, replace text-white with text-slate-900",
+    "Update src/components/file-upload.tsx: replace bg-slate-800/50 with bg-slate-50, replace border-slate-600 with border-slate-300, replace border-slate-700 with border-slate-200, replace hover:text-white with hover:text-slate-900",
+    "Update src/components/ui/alert.tsx: replace border-slate-700 with border-slate-200, replace bg-slate-800/50 with bg-slate-50, replace text-slate-300 with text-slate-700",
+    "Verify: run 'npm run build' to ensure all changes compile without errors"
+  ],
+  "acceptance_criteria": [
+    "All pages render with light theme backgrounds and appropriate text colors",
+    "Navbar uses light theme with proper contrast",
+    "Auth pages have gradient light backgrounds",
+    "Dashboard, papers, and history pages use slate-50 backgrounds with white cards",
+    "All color changes maintain WCAG AA contrast ratios for readability",
+    "npm run build completes successfully"
+  ],
+  "verification": [
+    "npm run build",
+    "Visual inspection: npm run dev and check http://localhost:3000, /auth/login, /auth/register, /dashboard, /papers, /history"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

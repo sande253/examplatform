@@ -1,0 +1,31 @@
+{
+  "project_type": "Next.js 14 App Router with TypeScript, Tailwind CSS, shadcn/ui",
+  "language": "TypeScript",
+  "build_system": "npm with Next.js build system",
+  "test_framework": "None found in package.json - no test framework configured",
+  "build_command": "npm run build",
+  "test_command": "npm run lint",
+  "verification_instructions": "Run npm run build to verify TypeScript compilation and no build errors. Run npm run dev and visually verify the light theme in browser at http://localhost:3000",
+  "snapshot_or_generated_files": "Next.js generates .next/ build artifacts. These are in .gitignore and should not be committed.",
+  "environment_constraints": "Frontend dev server runs on port 3000. Backend API expected on port 8000. No tests to run, verification is visual + build check.",
+  "contribution_requirements": "Project uses TypeScript strict mode. All components must maintain TypeScript type safety. shadcn/ui components use CSS variables from globals.css for theming.",
+  "key_patterns": "Pages use 'use client' directive when using hooks. Dark theme implemented via: (1) className='dark' on html tag in layout.tsx, (2) dark mode CSS variables in globals.css :root, (3) hardcoded dark classes like bg-[#0F172A], bg-slate-900, bg-slate-800, text-white, border-slate-800 throughout components. shadcn/ui components reference CSS variables via Tailwind config. Auth pages (login/register) are standalone with full-page dark backgrounds. Dashboard and other pages use Navbar component.",
+  "relevant_files": [
+    "src/app/globals.css",
+    "src/app/layout.tsx",
+    "tailwind.config.ts",
+    "src/app/page.tsx",
+    "src/app/auth/login/page.tsx",
+    "src/app/auth/register/page.tsx",
+    "src/app/dashboard/page.tsx",
+    "src/app/papers/page.tsx",
+    "src/app/history/page.tsx",
+    "src/components/navbar.tsx",
+    "src/components/file-upload.tsx",
+    "src/components/ui/alert.tsx",
+    "src/components/ui/card.tsx",
+    "src/components/ui/badge.tsx",
+    "src/components/ui/button.tsx"
+  ],
+  "directory_structure": "src/app/ contains pages using App Router (page.tsx files). src/components/ has reusable components. src/components/ui/ contains shadcn/ui primitives. src/lib/ has API client, auth context, types. All .tsx files are TypeScript React components."
+}

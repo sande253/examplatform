@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 98%; --foreground: 226 39% 16%; --card: 0 0% 100%; --card-foreground: 226 39% 16%;
+    --popover: 0 0% 100%; --popover-foreground: 226 39% 16%; --primary: 243 75% 59%; --primary-foreground: 0 0% 100%;
+    --secondary: 226 45% 96%; --secondary-foreground: 226 39% 16%; --muted: 225 38% 96%; --muted-foreground: 221 16% 46%;
+    --accent: 190 85% 45%; --accent-foreground: 0 0% 100%; --destructive: 0 75% 57%; --destructive-foreground: 0 0% 100%;
+    --border: 225 27% 90%; --input: 225 27% 90%; --ring: 243 75% 59%; --radius: 1rem;
+  }
+
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background-image: radial-gradient(circle at 90% -10%, rgba(99, 102, 241, .12), transparent 30%), radial-gradient(circle at 0% 0%, rgba(34, 211, 238, .08), transparent 24%);
+  }
+  ::selection { background: rgba(99, 102, 241, .2); color: #312e81; }
+}
+
+@layer components {
+  .public-shell { @apply min-h-screen bg-[#f8faff] text-slate-900; }
+  .app-shell { @apply min-h-screen bg-[#f8faff] text-slate-900; }
+  .soft-card { @apply rounded-2xl border border-slate-200/80 bg-white shadow-[0_16px_45px_-28px_rgba(15,23,42,.38)]; }
+  .soft-card-hover { @apply soft-card transition duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-[0_20px_45px_-26px_rgba(79,70,229,.32)]; }
+  .section-kicker { @apply text-xs font-bold uppercase tracking-[.16em] text-indigo-600; }
+  .page-title { @apply text-3xl font-bold tracking-tight text-slate-950 md:text-4xl; }
+  .page-subtitle { @apply mt-2 max-w-2xl text-sm leading-6 text-slate-500 md:text-base; }
+  .admin-page { @apply mx-auto max-w-7xl p-5 md:p-8; }
+  .admin-panel { @apply rounded-2xl border border-white/10 bg-slate-900/70 shadow-2xl shadow-slate-950/20 backdrop-blur-sm; }
+  .admin-input { @apply border-slate-700 bg-slate-950/55 text-slate-100 placeholder:text-slate-500 focus-visible:ring-indigo-400; }
+}
+
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-rise { animation: rise .45s ease-out both; }

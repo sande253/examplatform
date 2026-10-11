@@ -1,0 +1,280 @@
+INFO:     Started server process [19668]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\examplatform\backend\.venv\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1794, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1750, in _init_compiled
+    flattened_processors[key](compiled_params[key])
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\sql\sqltypes.py", line 3941, in process
+    value = value.hex
+            ^^^^^^^^^
+AttributeError: 'str' object has no attribute 'hex'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\examplatform\backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 422, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\applications.py", line 1216, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\telemetry\_asgi.py", line 151, in __call__
+    await self.app(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 149, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\routing.py", line 676, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2786, in app
+    await route.handle(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1817, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2869, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1828, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1817, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2869, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1843, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1308, in handle
+    await effective_context.app(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 165, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\telemetry\_api.py", line 244, in _run_sync_endpoint
+    return function(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\app\api\v1\endpoints\tests.py", line 21, in get_test_state
+    attempt = db.query(TestAttempt).filter(TestAttempt.id == attempt_id, TestAttempt.user_id == current_user.id).first()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2823, in first
+    return self.limit(1)._iter().first()  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2921, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2473, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2363, in _execute_internal
+    compile_state_cls.orm_execute_statement(
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\orm\context.py", line 316, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1451, in execute
+    return meth(
+           ^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 533, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1671, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1800, in _execute_context
+    self._handle_dbapi_exception(
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2335, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1794, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1750, in _init_compiled
+    flattened_processors[key](compiled_params[key])
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\sql\sqltypes.py", line 3941, in process
+    value = value.hex
+            ^^^^^^^^^
+sqlalchemy.exc.StatementError: (builtins.AttributeError) 'str' object has no attribute 'hex'
+[SQL: SELECT test_attempts.id AS test_attempts_id, test_attempts.test_instance_id AS test_attempts_test_instance_id, test_attempts.user_id AS test_attempts_user_id, test_attempts.status AS test_attempts_status, test_attempts.started_at AS test_attempts_started_at, test_attempts.submitted_at AS test_attempts_submitted_at, test_attempts.time_spent_seconds AS test_attempts_time_spent_seconds, test_attempts.score AS test_attempts_score, test_attempts.max_score AS test_attempts_max_score, test_attempts.percentage AS test_attempts_percentage, test_attempts.correct_count AS test_attempts_correct_count, test_attempts.incorrect_count AS test_attempts_incorrect_count, test_attempts.unanswered_count AS test_attempts_unanswered_count, test_attempts.topic_performance AS test_attempts_topic_performance, test_attempts.created_at AS test_attempts_created_at, test_attempts.updated_at AS test_attempts_updated_at 
+FROM test_attempts 
+WHERE test_attempts.id = ? AND test_attempts.user_id = ?
+ LIMIT ? OFFSET ?]
+[parameters: [{}]]
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1794, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1750, in _init_compiled
+    flattened_processors[key](compiled_params[key])
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\sql\sqltypes.py", line 3941, in process
+    value = value.hex
+            ^^^^^^^^^
+AttributeError: 'str' object has no attribute 'hex'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\examplatform\backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 422, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\applications.py", line 1216, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\telemetry\_asgi.py", line 151, in __call__
+    await self.app(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 149, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\routing.py", line 676, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2786, in app
+    await route.handle(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1817, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2869, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1828, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1817, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2869, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1843, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1308, in handle
+    await effective_context.app(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 165, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\fastapi\telemetry\_api.py", line 244, in _run_sync_endpoint
+    return function(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\app\api\v1\endpoints\tests.py", line 21, in get_test_state
+    attempt = db.query(TestAttempt).filter(TestAttempt.id == attempt_id, TestAttempt.user_id == current_user.id).first()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2823, in first
+    return self.limit(1)._iter().first()  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2921, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2473, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2363, in _execute_internal
+    compile_state_cls.orm_execute_statement(
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\orm\context.py", line 316, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1451, in execute
+    return meth(
+           ^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 533, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1671, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1800, in _execute_context
+    self._handle_dbapi_exception(
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2335, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1794, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1750, in _init_compiled
+    flattened_processors[key](compiled_params[key])
+  File "C:\examplatform\backend\.venv\Lib\site-packages\sqlalchemy\sql\sqltypes.py", line 3941, in process
+    value = value.hex
+            ^^^^^^^^^
+sqlalchemy.exc.StatementError: (builtins.AttributeError) 'str' object has no attribute 'hex'
+[SQL: SELECT test_attempts.id AS test_attempts_id, test_attempts.test_instance_id AS test_attempts_test_instance_id, test_attempts.user_id AS test_attempts_user_id, test_attempts.status AS test_attempts_status, test_attempts.started_at AS test_attempts_started_at, test_attempts.submitted_at AS test_attempts_submitted_at, test_attempts.time_spent_seconds AS test_attempts_time_spent_seconds, test_attempts.score AS test_attempts_score, test_attempts.max_score AS test_attempts_max_score, test_attempts.percentage AS test_attempts_percentage, test_attempts.correct_count AS test_attempts_correct_count, test_attempts.incorrect_count AS test_attempts_incorrect_count, test_attempts.unanswered_count AS test_attempts_unanswered_count, test_attempts.topic_performance AS test_attempts_topic_performance, test_attempts.created_at AS test_attempts_created_at, test_attempts.updated_at AS test_attempts_updated_at 
+FROM test_attempts 
+WHERE test_attempts.id = ? AND test_attempts.user_id = ?
+ LIMIT ? OFFSET ?]
+[parameters: [{}]]

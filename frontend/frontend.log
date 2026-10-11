@@ -1,0 +1,149 @@
+
+> frontend@0.1.0 dev
+> next dev --hostname 127.0.0.1 --port 3000
+
+  ▲ Next.js 14.2.0
+  - Local:        http://127.0.0.1:3000
+  - Network:      http://127.0.0.1:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 16.5s
+ ✓ Compiled /src/middleware in 317ms (71 modules)
+ ○ Compiling /auth/login ...
+ ✓ Compiled /auth/login in 28.9s (903 modules)
+ GET /auth/login 200 in 29813ms
+ GET /auth/login 200 in 29748ms
+ ✓ Compiled in 258ms (407 modules)
+ ✓ Compiled in 396ms (876 modules)
+ GET /auth/login 200 in 192ms
+ GET /auth/login 200 in 222ms
+ GET /auth/login 200 in 67ms
+ GET /auth/login 200 in 60ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 2.1s (1067 modules)
+ GET /dashboard 200 in 343ms
+ GET /dashboard 200 in 357ms
+ GET /auth/login 200 in 102ms
+ GET /auth/login 200 in 132ms
+ ○ Compiling /pricing ...
+ ✓ Compiled /pricing in 804ms (1081 modules)
+ ○ Compiling /admin ...
+ ✓ Compiled /admin in 1021ms (1106 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 520ms (1109 modules)
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 830ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 815ms
+ ○ Compiling /admin/papers/new ...
+ ✓ Compiled /admin/papers/new in 851ms (1127 modules)
+ ○ Compiling /admin/documents ...
+ ✓ Compiled /admin/documents in 854ms (1143 modules)
+ ○ Compiling /admin/papers ...
+ ✓ Compiled /admin/papers in 822ms (1121 modules)
+ ○ Compiling /admin/questions ...
+ ✓ Compiled /admin/questions in 1119ms (1130 modules)
+ ✓ Compiled /auth/login in 387ms (620 modules)
+ GET /auth/login 200 in 724ms
+ GET /auth/login 200 in 712ms
+ ○ Compiling /papers ...
+ ✓ Compiled /papers in 534ms (1148 modules)
+ ✓ Compiled in 1203ms (544 modules)
+ GET /papers 200 in 442ms
+ GET /papers 200 in 448ms
+ ✓ Compiled in 2.6s (1156 modules)
+ ✓ Compiled in 1ms (612 modules)
+ ✓ Compiled in 1ms (612 modules)
+ ✓ Compiled in 1479ms (1156 modules)
+ GET /papers 200 in 4361ms
+ GET /papers 200 in 4329ms
+ ✓ Compiled in 3s (1156 modules)
+ GET /papers 200 in 498ms
+ GET /papers 200 in 511ms
+ GET /admin/documents 200 in 152ms
+ GET /admin/documents 200 in 60ms
+ GET /auth/login 200 in 104ms
+ GET /auth/login 200 in 142ms
+ ✓ Compiled in 1651ms (1156 modules)
+ GET /papers 200 in 702ms
+ GET /papers 200 in 707ms
+ GET /auth/login 200 in 823ms
+ GET /auth/login 200 in 693ms
+ ✓ Compiled in 732ms (544 modules)
+ GET /papers 200 in 58ms
+ GET /papers 200 in 34ms
+ ✓ Compiled in 459ms (544 modules)
+ ✓ Compiled in 1940ms (1156 modules)
+ GET /papers 200 in 664ms
+ GET /papers 200 in 679ms
+ GET /auth/login 200 in 103ms
+ GET /auth/login 200 in 88ms
+ ✓ Compiled in 1635ms (1156 modules)
+ ✓ Compiled in 0ms (612 modules)
+ ✓ Compiled in 1ms (612 modules)
+ ✓ Compiled in 1ms (612 modules)
+ GET /papers 200 in 1408ms
+ GET /papers 200 in 1355ms
+ ✓ Compiled in 1606ms (1156 modules)
+ ✓ Compiled in 1171ms (1156 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1679ms (1168 modules)
+ GET / 200 in 2267ms
+ GET / 200 in 2274ms
+ GET / 200 in 110ms
+ GET / 200 in 149ms
+ ○ Compiling /admin ...
+ ✓ Compiled /admin in 562ms (635 modules)
+ ○ Compiling /admin/papers ...
+ ✓ Compiled /admin/papers in 561ms (642 modules)
+ ○ Compiling /admin/documents/[id]/review ...
+ ✓ Compiled /admin/documents/[id]/review in 1678ms (1184 modules)
+ ○ Compiling /admin/questions ...
+ ✓ Compiled /admin/questions in 592ms (654 modules)
+ ○ Compiling /admin/users ...
+ ✓ Compiled /_not-found in 13.6s (2216 modules)
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 3421ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 2803ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 74ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 59ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 746ms (1163 modules)
+ GET /dashboard 200 in 299ms
+ GET /dashboard 200 in 332ms
+ ✓ Compiled in 4s (1677 modules)
+ GET /papers 200 in 2545ms
+ GET /papers 200 in 2434ms
+ GET / 200 in 1774ms
+ GET / 200 in 1333ms
+ GET /papers 200 in 99ms
+ GET /papers 200 in 135ms
+ GET / 200 in 68ms
+ GET / 200 in 66ms
+ ○ Compiling /auth/register ...
+ ✓ Compiled /auth/register in 1172ms (1698 modules)
+ ○ Compiling /papers/[id] ...
+ ✓ Compiled /papers/[id] in 1397ms (1705 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1040ms (1708 modules)
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 1363ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 1352ms
+ ✓ Compiled in 6.5s (1705 modules)
+ GET /papers 200 in 3771ms
+ GET /papers 200 in 3710ms
+ GET /papers/fe788ca0-7b0e-4c71-b96f-cff3a5cf0338 200 in 3734ms
+ GET /papers/fe788ca0-7b0e-4c71-b96f-cff3a5cf0338 200 in 3513ms
+ ○ Compiling /test/[attemptId] ...
+ ✓ Compiled /test/[attemptId] in 2.7s (1709 modules)
+ ○ Compiling /test/[attemptId]/results ...
+ ✓ Compiled /test/[attemptId]/results in 3.2s (2243 modules)
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 592ms (1132 modules)
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 10.4s (2436 modules)
+ GET /dashboard 200 in 4821ms
+ GET /dashboard 200 in 4480ms
+ GET /papers 200 in 217ms
+ GET /papers 200 in 179ms
+ ✓ Compiled in 3.4s (2447 modules)
+ ✓ Compiled in 2.4s (2433 modules)
+ ○ Compiling /papers/[id] ...
+ ✓ Compiled /papers/[id] in 852ms (1165 modules)

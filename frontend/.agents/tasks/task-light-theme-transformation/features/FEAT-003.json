@@ -1,0 +1,31 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "Add framer-motion for animations and enhance UI with smooth transitions, SVG logo animations, and micro-interactions on buttons and cards",
+  "status": "pending",
+  "steps": [
+    "Install framer-motion: run 'npm install framer-motion' from c:\\examplatform\\frontend",
+    "Update src/app/page.tsx landing page: wrap hero section h1 and p in motion.div with initial={{ opacity: 0, y: 20 }}, animate={{ opacity: 1, y: 0 }}, transition={{ duration: 0.6 }}; wrap feature cards in motion.div with whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}",
+    "Update src/app/dashboard/page.tsx: wrap stat cards in motion.div with initial={{ opacity: 0, y: 20 }}, animate={{ opacity: 1, y: 0 }}, transition={{ duration: 0.4, delay: index * 0.1 }}; add whileHover={{ y: -4 }} to recent attempts list items",
+    "Update src/app/papers/page.tsx: wrap paper cards in motion.div with initial={{ opacity: 0, scale: 0.95 }}, animate={{ opacity: 1, scale: 1 }}, whileHover={{ scale: 1.02, boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}",
+    "Update src/components/navbar.tsx: import motion from framer-motion, wrap nav buttons in motion.div with whileHover={{ scale: 1.05 }}, whileTap={{ scale: 0.95 }}",
+    "Enhance src/app/page.tsx Brain icon: wrap in motion.div with animate={{ rotate: [0, 5, -5, 0] }}, transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}",
+    "Add global transition classes to tailwind.config.ts: in theme.extend add transitionDuration: { '400': '400ms' }, transitionTimingFunction: { 'bounce-in': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)' }",
+    "Verify: run 'npm run build' to ensure framer-motion integrates without errors, then run 'npm run dev' and visually verify smooth animations"
+  ],
+  "acceptance_criteria": [
+    "framer-motion is installed and appears in package.json dependencies",
+    "Landing page hero section fades in smoothly on load",
+    "Cards across the app have hover scale animations",
+    "Navbar buttons have tap feedback",
+    "Brain logo has subtle rotating animation",
+    "All animations are performant and do not cause layout shifts",
+    "npm run build completes successfully"
+  ],
+  "verification": [
+    "npm run build",
+    "Visual inspection: npm run dev and interact with pages to verify animations at http://localhost:3000"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

@@ -1,0 +1,7 @@
+{
+  "task_id": "task-light-theme-transformation",
+  "task_description": "Transform the exam platform frontend from dark theme to modern light theme with animations and improved UI",
+  "status": "pending",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null
+}
