@@ -9,31 +9,10 @@ import json
 
 app = FastAPI(title="ExamPlatform API", version="1.0.0")
 
-# Parse CORS_ORIGINS from environment (could be JSON string or list)
-_cors_origins = []
-if settings.CORS_ORIGINS:
-    if isinstance(settings.CORS_ORIGINS, str):
-        try:
-            _cors_origins = json.loads(settings.CORS_ORIGINS)
-        except json.JSONDecodeError:
-            _cors_origins = [settings.CORS_ORIGINS]
-    else:
-        _cors_origins = list(settings.CORS_ORIGINS)
-
-# Always include localhost for development
-for origin in ("http://localhost:3000", "http://127.0.0.1:3000"):
-    if origin not in _cors_origins:
-        _cors_origins.append(origin)
-
-# Always include production frontend
-if "https://examplatform2535.vercel.app" not in _cors_origins:
-    _cors_origins.append("https://examplatform2535.vercel.app")
-
-print(f"CORS Origins configured: {_cors_origins}")
-
+# Allow all origins temporarily to fix CORS issue
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=_cors_origins,
+    allow_origins=["*"],  # Allow all origins for now
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
