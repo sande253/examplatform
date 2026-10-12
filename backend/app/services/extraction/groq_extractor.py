@@ -9,13 +9,18 @@ logger = logging.getLogger(__name__)
 
 class GroqExtractor:
     def __init__(self):
-        from groq import Groq
-        self.client = Groq(api_key=settings.GROQ_API_KEY)
-        self.model = settings.GROQ_MODEL
+        if not settings.GROQ_API_KEY:
+            raise ValueError("GROQ_API_KEY is not configured in environment variables.")
+        try:
+            from groq import Groq
+            self.client = Groq(api_key=settings.GROQ_API_KEY, timeout=30.0)
+            self.model = settings.GROQ_MODEL
+        except Exception as e:
+            raise ValueError(f"Failed to initialize GROQ client: {e}")
 
     def extract(self, text: str) -> List[dict]:
-        if not settings.GROQ_API_KEY:
-            raise Exception("GROQ_API_KEY is not set.")
+        if not text or not text.strip():
+            raise ValueError("No text provided for extraction.")
 
         # Keep enough context for multi-question exam papers without overflowing context.
         snippet = text[:12000]
@@ -35,23 +40,29 @@ Text:
 {snippet}
 """
 
-        chat_completion = self.client.chat.completions.create(
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You extract structured exam questions. Respond with JSON only.",
-                },
-                {"role": "user", "content": prompt},
-            ],
-            model=self.model,
-            temperature=0.1,
-        )
+        try:
+            chat_completion = self.client.chat.completions.create(
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You extract structured exam questions. Respond with JSON only.",
+                    },
+                    {"role": "user", "content": prompt},
+                ],
+                model=self.model,
+                temperature=0.1,
+                timeout=25,
+            )
 
-        response_content = chat_completion.choices[0].message.content or ""
-        parsed = self._parse_json_array(response_content)
-        if not parsed:
-            logger.warning("Groq returned no parseable questions. Raw response: %s", response_content[:500])
-        return parsed
+            response_content = chat_completion.choices[0].message.content or ""
+            parsed = self._parse_json_array(response_content)
+            if not parsed:
+                logger.warning("Groq returned no parseable questions. Raw response: %s", response_content[:500])
+                raise ValueError("GROQ API returned no valid questions. The PDF may not contain extractable exam questions.")
+            return parsed
+        except Exception as e:
+            logger.error(f"GROQ API error: {e}")
+            raise ValueError(f"AI extraction failed: {str(e)}")
 
     def _parse_json_array(self, content: str) -> List[dict]:
         # Strip common markdown fences before locating the array.

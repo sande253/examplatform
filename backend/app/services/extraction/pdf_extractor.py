@@ -14,6 +14,13 @@ except ImportError:
     _FITZ_AVAILABLE = False
 
 try:
+    from pypdf import PdfReader
+    _PYPDF_AVAILABLE = True
+except ImportError:
+    PdfReader = None  # type: ignore[assignment]
+    _PYPDF_AVAILABLE = False
+
+try:
     from PIL import Image
     _PIL_AVAILABLE = True
 except ImportError:
@@ -46,12 +53,42 @@ def _resolve_tesseract_cmd() -> str | None:
 
 class PDFExtractor:
     def extract_text(self, file_path: str) -> str:
-        if not _FITZ_AVAILABLE or fitz is None:
+        # Try pymupdf first (better OCR support), fallback to pypdf
+        if _FITZ_AVAILABLE and fitz is not None:
+            return self._extract_with_fitz(file_path)
+        elif _PYPDF_AVAILABLE and PdfReader is not None:
+            return self._extract_with_pypdf(file_path)
+        else:
             raise RuntimeError(
-                "pymupdf (fitz) is not available in this environment. "
-                "PDF text extraction requires pymupdf to be installed."
+                "No PDF library available. Install either pymupdf or pypdf: "
+                "pip install pymupdf (for full features) or pip install pypdf (basic text extraction)"
             )
-        
+    
+    def _extract_with_pypdf(self, file_path: str) -> str:
+        """Extract text using pypdf (simpler, no OCR)."""
+        logger.info("Using pypdf for text extraction")
+        try:
+            reader = PdfReader(file_path)
+            text_parts = []
+            for page in reader.pages:
+                page_text = page.extract_text() or ""
+                if page_text.strip():
+                    text_parts.append(page_text)
+            result = "\n".join(text_parts)
+            if not result.strip():
+                raise RuntimeError(
+                    "PDF contains no extractable text. "
+                    "It may be a scanned document or image-based PDF. "
+                    "Install pymupdf with OCR support for scanned documents."
+                )
+            return result
+        except Exception as e:
+            logger.error(f"pypdf extraction failed: {e}")
+            raise RuntimeError(f"Failed to extract text from PDF: {e}")
+    
+    def _extract_with_fitz(self, file_path: str) -> str:
+        """Extract text using pymupdf (supports OCR)."""
+        logger.info("Using pymupdf for text extraction")
         text_parts: list[str] = []
         doc = fitz.open(file_path)
         try:
