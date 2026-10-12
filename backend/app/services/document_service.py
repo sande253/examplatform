@@ -48,7 +48,6 @@ def create_document(
     """Save the uploaded PDF only. Processing happens separately via process_document endpoint.
     This avoids serverless timeout issues.
     """
-    """
     upload_dir = _get_upload_dir()
     original_filename = os.path.basename(file.filename or "upload.pdf")
     extension = os.path.splitext(original_filename)[1].lower()
