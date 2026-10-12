@@ -3,8 +3,23 @@ import logging
 import os
 import shutil
 
-import pymupdf as fitz
-from PIL import Image
+# pymupdf and Pillow are optional — not available in the Vercel serverless
+# environment.  Import them lazily inside methods so the module can be
+# imported without crashing the application.
+try:
+    import pymupdf as fitz
+    _FITZ_AVAILABLE = True
+except ImportError:
+    fitz = None  # type: ignore[assignment]
+    _FITZ_AVAILABLE = False
+
+try:
+    from PIL import Image
+    _PIL_AVAILABLE = True
+except ImportError:
+    Image = None  # type: ignore[assignment]
+    _PIL_AVAILABLE = False
+
 
 from app.core.config import settings
 
@@ -31,6 +46,12 @@ def _resolve_tesseract_cmd() -> str | None:
 
 class PDFExtractor:
     def extract_text(self, file_path: str) -> str:
+        if not _FITZ_AVAILABLE or fitz is None:
+            raise RuntimeError(
+                "pymupdf (fitz) is not available in this environment. "
+                "PDF text extraction requires pymupdf to be installed."
+            )
+        
         text_parts: list[str] = []
         doc = fitz.open(file_path)
         try:
@@ -57,6 +78,10 @@ class PDFExtractor:
             pytesseract.pytesseract.tesseract_cmd = tesseract_cmd
         else:
             logger.warning("Tesseract executable was not found; skipping OCR for scanned page.")
+            return ""
+
+        if not _PIL_AVAILABLE or Image is None:
+            logger.warning("PIL/Pillow is not available; skipping OCR for scanned page.")
             return ""
 
         try:
