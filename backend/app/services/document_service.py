@@ -6,8 +6,30 @@ from app.core.config import settings
 import os
 import shutil
 import uuid
+import logging
 from app.services.extraction import get_extractor
 from app.services.extraction.pdf_extractor import PDFExtractor
+
+logger = logging.getLogger(__name__)
+
+
+
+def _get_upload_dir() -> str:
+    """Return a writable upload directory.
+    Vercel serverless has a read-only filesystem except for /tmp.
+    """
+    preferred = settings.LOCAL_STORAGE_PATH
+    try:
+        os.makedirs(preferred, exist_ok=True)
+        probe = os.path.join(preferred, ".write_probe")
+        with open(probe, "w") as fh:
+            fh.write("ok")
+        os.remove(probe)
+        return preferred
+    except OSError:
+        tmp = "/tmp/uploads"
+        os.makedirs(tmp, exist_ok=True)
+        return tmp
 
 
 def save_upload_file(upload_file: UploadFile, destination: str) -> None:
@@ -23,8 +45,11 @@ def create_document(
     subject: str | None = None,
     exam_name: str | None = None,
 ) -> Document:
-    upload_dir = settings.LOCAL_STORAGE_PATH
-    os.makedirs(upload_dir, exist_ok=True)
+    """Save the uploaded PDF only. Processing happens separately via process_document endpoint.
+    This avoids serverless timeout issues.
+    """
+    """
+    upload_dir = _get_upload_dir()
     original_filename = os.path.basename(file.filename or "upload.pdf")
     extension = os.path.splitext(original_filename)[1].lower()
     if extension != ".pdf":
@@ -41,6 +66,15 @@ def create_document(
         os.remove(file_path)
         raise ValueError(f"File must be under {settings.MAX_UPLOAD_SIZE_MB}MB.")
 
+    # Extract text immediately while the file is still in /tmp.
+    # Cache it in extracted_questions so process_document can use it
+    # without needing filesystem access across invocations.
+    cached_text: str | None = None
+    try:
+        cached_text = PDFExtractor().extract_text(file_path)
+    except Exception as exc:
+        logger.warning("Text extraction during upload failed: %s", exc)
+
     doc = Document(
         title=title or os.path.splitext(original_filename)[0],
         subject=subject or None,
@@ -50,11 +84,14 @@ def create_document(
         file_size_bytes=file_size,
         uploaded_by=user_id,
         status=DocumentStatus.UPLOADED,
+        # Store raw text under a sentinel key so process_document can find it.
+        extracted_questions={"__raw_text__": cached_text} if cached_text else None,
     )
     db.add(doc)
     db.commit()
     db.refresh(doc)
     return doc
+
 
 
 def _normalise_question(raw: dict) -> dict:
@@ -120,25 +157,44 @@ def _clear_extracted_questions(db: Session, document_id) -> None:
 
 
 def process_document(db: Session, document: Document) -> Document:
-    """Extract a PDF and persist both the review JSON and question records."""
+    """Extract a PDF and persist both the review JSON and question records.
+
+    Text source priority (serverless-safe):
+      1. Cached raw text stored in extracted_questions["__raw_text__"] during upload.
+      2. Live extraction from file_path (works locally / non-serverless).
+    """
     document_id = document.id
     document.status = DocumentStatus.PROCESSING
     document.error_message = None
-    document.extracted_questions = None
     db.commit()
 
     try:
-        if not document.file_path or not os.path.exists(document.file_path):
-            raise ValueError("Uploaded file is missing from storage.")
+        # ── Obtain text ────────────────────────────────────────────────────
+        text: str | None = None
 
-        _clear_extracted_questions(db, document_id)
+        # Check DB cache first (set during upload on serverless).
+        cached = document.extracted_questions
+        if isinstance(cached, dict) and "__raw_text__" in cached:
+            text = cached["__raw_text__"]
+            logger.info("Using cached extracted text for document %s", document_id)
 
-        text = PDFExtractor().extract_text(document.file_path)
-        if not text.strip():
+        # Fall back to live extraction from disk.
+        if not text:
+            if not document.file_path or not os.path.exists(document.file_path):
+                raise ValueError(
+                    "Uploaded file is missing from storage and no cached text is available. "
+                    "Please re-upload the document."
+                )
+            text = PDFExtractor().extract_text(document.file_path)
+
+        if not text or not text.strip():
             raise ValueError(
                 "The PDF did not contain extractable text. "
-                "If it is a scanned document, install Tesseract OCR and retry."
+                "If it is a scanned document, please use a text-based PDF."
             )
+
+        # ── Extract questions via AI ────────────────────────────────────────
+        _clear_extracted_questions(db, document_id)
 
         extracted = get_extractor().extract(text)
         if not extracted:

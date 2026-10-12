@@ -22,8 +22,11 @@ class GroqExtractor:
         if not text or not text.strip():
             raise ValueError("No text provided for extraction.")
 
-        # Keep enough context for multi-question exam papers without overflowing context.
-        snippet = text[:12000]
+        # Keep shorter context to avoid timeouts - 6000 chars instead of 12000
+        # This helps Vercel serverless complete within 10s timeout
+        snippet = text[:6000]
+        
+        logger.info(f"Extracting questions from {len(snippet)} characters of text")
 
         prompt = f"""Extract exam questions from the following text and output ONLY a valid JSON array.
 Each object must have these keys:
@@ -41,6 +44,7 @@ Text:
 """
 
         try:
+            logger.info("Calling GROQ API...")
             chat_completion = self.client.chat.completions.create(
                 messages=[
                     {
@@ -51,17 +55,25 @@ Text:
                 ],
                 model=self.model,
                 temperature=0.1,
-                timeout=25,
+                timeout=20,  # Reduced from 25 to 20 seconds
             )
+            logger.info("GROQ API call completed successfully")
 
             response_content = chat_completion.choices[0].message.content or ""
             parsed = self._parse_json_array(response_content)
             if not parsed:
                 logger.warning("Groq returned no parseable questions. Raw response: %s", response_content[:500])
                 raise ValueError("GROQ API returned no valid questions. The PDF may not contain extractable exam questions.")
+            logger.info(f"Successfully extracted {len(parsed)} questions")
             return parsed
         except Exception as e:
-            logger.error(f"GROQ API error: {e}")
+            logger.error(f"GROQ API error: {type(e).__name__}: {e}")
+            # Check if it's a timeout/connection error
+            if "timeout" in str(e).lower() or "connection" in str(e).lower():
+                raise ValueError(
+                    "AI extraction timed out. This can happen with long documents or slow API responses. "
+                    "Try uploading a shorter PDF (1-2 pages) or contact support."
+                )
             raise ValueError(f"AI extraction failed: {str(e)}")
 
     def _parse_json_array(self, content: str) -> List[dict]:
